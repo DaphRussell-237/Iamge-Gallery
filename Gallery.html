@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina — Image Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Lumina Gallery</h1>
+    <p>A curated collection of moments, captured in light and shadow.</p>
+    <button class="btn-add" id="btnAdd">
+      <span class="plus">+</span> Add Image
+    </button>
+  </header>
+
+  <main class="gallery" id="gallery">
+    <!-- Tiles rendered by script.js -->
+  </main>
+
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Close lightbox">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">&#10094;</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">&#10095;</button>
+
+    <figure class="lb-content">
+      <img id="lbImage" src="" alt="">
+      <figcaption class="lb-caption">
+        <span id="lbCategory"></span>
+        <h3 id="lbTitle"></h3>
+      </figcaption>
+    </figure>
+
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+
+  <!-- ===== ADD IMAGE MODAL ===== -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+
+      <h2>Add New Image</h2>
+      <p class="modal-sub">Upload from your device or paste an image link.</p>
+
+      <!-- Source tabs -->
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" id="tabFile" role="tab" aria-selected="true">
+          📁 From Device
+        </button>
+        <button type="button" class="tab" id="tabUrl" role="tab" aria-selected="false">
+          🔗 From Link
+        </button>
+      </div>
+
+      <form id="addForm" novalidate>
+
+        <!-- ===== FILE INPUT PANEL ===== -->
+        <div class="panel active" id="panelFile">
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="inputFile" accept="image/*" hidden>
+            <div class="dropzone-inner" id="dropzoneInner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="42" height="42">
+                <path d="M12 16V4m0 0L8 8m4-4l4 4"/>
+                <path d="M20 16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2"/>
+              </svg>
+              <p><strong>Click to upload</strong> or drag &amp; drop</p>
+              <small>PNG, JPG, GIF, WEBP — max ~2MB</small>
+            </div>
+            <img id="filePreview" class="file-preview" alt="Preview" hidden>
+          </div>
+          <button type="button" class="btn-text" id="btnClearFile" hidden>Remove file</button>
+        </div>
+
+        <!-- ===== URL INPUT PANEL ===== -->
+        <div class="panel" id="panelUrl">
+          <div class="form-group">
+            <label for="inputUrl">Image URL *</label>
+            <input type="url" id="inputUrl" placeholder="https://example.com/photo.jpg">
+          </div>
+          <div class="url-preview-wrap">
+            <img id="urlPreview" class="url-preview" alt="URL preview" hidden>
+          </div>
+        </div>
+
+        <!-- ===== SHARED FIELDS ===== -->
+        <div class="form-group">
+          <label for="inputTitle">Title *</label>
+          <input type="text" id="inputTitle" placeholder="e.g. Silent River" maxlength="60">
+        </div>
+
+        <div class="form-group">
+          <label for="inputCategory">Category</label>
+          <input type="text" id="inputCategory" placeholder="e.g. Nature" maxlength="30">
+        </div>
+
+        <div class="form-group">
+          <label for="inputSize">Size</label>
+          <select id="inputSize">
+            <option value="normal">Normal (1×1)</option>
+            <option value="tall">Tall (1×2)</option>
+            <option value="wide">Wide (2×1)</option>
+          </select>
+        </div>
+
+        <p class="form-error" id="formError"></p>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="btnCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add to Gallery</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
